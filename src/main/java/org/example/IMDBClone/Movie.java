@@ -2,7 +2,7 @@ package org.example.IMDBClone;
 
 import java.util.List;
 
-public class Movie {
+public class Movie implements Comparable<Movie> {
 
     private String title;
     private int releaseYear;
@@ -18,6 +18,9 @@ public class Movie {
         this.type = type;
         this.actors = actors;
         this.reviews = reviews;
+    }
+
+    public Movie() {
     }
 
     public String getTitle() {
@@ -79,4 +82,21 @@ public class Movie {
                 ", reviews=" + reviews +
                 '}';
     }
+
+    public int getAverageReview(){
+        int sum = 0;
+        int counter =0;
+        for (Review review: getReviews()){
+            sum+= review.getValue();
+            counter++;
+        }
+        return sum/counter;
+    }
+
+    @Override
+    public int compareTo(Movie anotherMovie) {
+        return Integer.compare(this.getAverageReview(),anotherMovie.getAverageReview());
+    }
+
+
 }
